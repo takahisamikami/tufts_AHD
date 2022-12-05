@@ -2,9 +2,12 @@ name: "TMikami.R"
 navbar:
   title: "TMikami.R"
   left: 
-    - text: "about"
-      href: "about.html"
+    - text: "README"
+      href: "README.html"
+    - text: "AHD attendance"
+      href: "tufts_AHD_attendance.html"
 output:
   html_document:
     css: site_style.css
+    theme: darkly
 output_dir: "docs"
