@@ -1,6 +1,6 @@
-name: "TMikami.R"
+name: "TuftsNeurology"
 navbar:
-  title: "TMikami.R"
+  title: "TuftsNeurology"
   left: 
     - text: "README"
       href: "README.html"
@@ -9,5 +9,5 @@ navbar:
 output:
   html_document:
     css: site_style.css
-    theme: darkly
+    theme: cosmo
 output_dir: "docs"

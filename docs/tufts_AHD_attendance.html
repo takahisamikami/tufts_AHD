@@ -9,16 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Takahisa Mikami" />
+<meta name="author" content="tmikami" />
 
 <meta name="date" content="2022-12-05" />
 
-<title>tufts_AHD_attendance</title>
+<title>AHD attendance</title>
 
 <script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -35,6 +35,8 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -47,113 +49,18 @@
   ul.task-list{list-style: none;}
     </style>
 
-
-
-<style type="text/css">
-  code {
-    white-space: pre;
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
-<style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    background-color: #ffffff;
-    color: #a0a0a0;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
-div.sourceCode
-  { color: #1f1c1b; background-color: #ffffff; }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span { color: #1f1c1b; } /* Normal */
-code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
-code span.an { color: #ca60ca; } /* Annotation */
-code span.at { color: #0057ae; } /* Attribute */
-code span.bn { color: #b08000; } /* BaseN */
-code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
-code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #924c9d; } /* Char */
-code span.cn { color: #aa5500; } /* Constant */
-code span.co { color: #898887; } /* Comment */
-code span.cv { color: #0095ff; } /* CommentVar */
-code span.do { color: #607880; } /* Documentation */
-code span.dt { color: #0057ae; } /* DataType */
-code span.dv { color: #b08000; } /* DecVal */
-code span.er { color: #bf0303; text-decoration: underline; } /* Error */
-code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
-code span.fl { color: #b08000; } /* Float */
-code span.fu { color: #644a9b; } /* Function */
-code span.im { color: #ff5500; } /* Import */
-code span.in { color: #b08000; } /* Information */
-code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
-code span.op { color: #1f1c1b; } /* Operator */
-code span.ot { color: #006e28; } /* Other */
-code span.pp { color: #006e28; } /* Preprocessor */
-code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
-code span.sc { color: #3daee9; } /* SpecialChar */
-code span.ss { color: #ff5500; } /* SpecialString */
-code span.st { color: #bf0303; } /* String */
-code span.va { color: #0057ae; } /* Variable */
-code span.vs { color: #bf0303; } /* VerbatimString */
-code span.wa { color: #bf0303; } /* Warning */
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    var j = 0;
-    while (j < rules.length) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
-        j++;
-        continue;
-      }
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') {
-        j++;
-        continue;
-      }
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
 </script>
+
+
 
 
 
@@ -412,7 +319,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">TMikami.R</a>
+      <a class="navbar-brand" href="index.html">TuftsNeurology</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -434,45 +341,25 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">tufts_AHD_attendance</h1>
-<h4 class="author">Takahisa Mikami</h4>
+<h1 class="title toc-ignore">AHD attendance</h1>
+<h4 class="author">tmikami</h4>
 <h4 class="date">2022-12-05</h4>
 
 </div>
 
 
-<div id="tufts-ahd-attendance" class="section level2">
-<h2>Tufts AHD attendance</h2>
-<div id="goal" class="section level3">
-<h3>Goal</h3>
-<p>To understand if there is a specific rotation that always leads to
-joining late AHD.</p>
-</div>
-<div id="used-data" class="section level3">
-<h3>Used data</h3>
-<p>Attendance reports automatically generated by Zoom were used.</p>
-</div>
-<div id="limitation" class="section level3">
-<h3>Limitation</h3>
-<p>Not reflected in the data include: - Tufts consult residents log in
-but had to continue to work on notes or see pending consult (once) -
-Lahey Jr had to go to stroke code just before 1pm - Tufts Sr had to do
-family meeting (once) - Lahey Sr had to do write notes while taking over
-the pager when Lahey Jr is seeing stroke codes (once)</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pacman&quot;</span>)) { <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>) }</span></code></pre></div>
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) { install.packages(&quot;pacman&quot;) }</code></pre>
 <pre><code>## Loading required package: pacman</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>( pipeR, dplyr, tidyverse, pdftools, tabulizer, data.table, lubridate, knitr, kableExtra )</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) { <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>) }</span></code></pre></div>
+<pre class="r"><code>pacman::p_load( pipeR, dplyr, tidyverse, pdftools, tabulizer, data.table, lubridate, knitr, kableExtra, gt )
+if (!require(&quot;remotes&quot;)) { install.packages(&quot;remotes&quot;) }</code></pre>
 <pre><code>## Loading required package: remotes</code></pre>
-</div>
-</div>
 <div id="rotation-table" class="section level2">
 <h2>Rotation table</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>home_path <span class="ot">=</span> <span class="st">&quot;/Users/TakahisaMikami/drive/0.NeuroEducation/Tufts_education/AHD/AHD_participants&quot;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_rotation <span class="ot">=</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="fu">file.path</span>(home_path, <span class="st">&quot;attendance_reports/participants_schedule.xlsx&quot;</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_rotation <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)</span></code></pre></div>
+<pre class="r"><code>home_path = &quot;/Users/TakahisaMikami/drive/0.NeuroEducation/Tufts_education/AHD/AHD_participants&quot;
+df_rotation = openxlsx::read.xlsx(file.path(home_path, &quot;attendance_reports/participants_schedule.xlsx&quot;))
+df_rotation %&gt;&gt;% 
+  kbl() %&gt;%
+  kable_paper(&quot;hover&quot;, full_width = F)</code></pre>
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -962,184 +849,231 @@ NF
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># kable_styling()</span></span></code></pre></div>
+<pre class="r"><code>  # kable_styling()</code></pre>
 </div>
 <div id="attendance-reports" class="section level2">
 <h2>Attendance reports</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>date_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;d1104&quot;</span>, <span class="st">&quot;d1111&quot;</span>, <span class="st">&quot;d1118&quot;</span>, <span class="st">&quot;d1202&quot;</span>) <span class="co"># , &quot;d1209&quot;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>path_prefix <span class="ot">&lt;-</span> <span class="fu">paste0</span>(home_path, <span class="st">&quot;/attendance_reports/participants_&quot;</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>file_list <span class="ot">&lt;-</span> <span class="fu">paste0</span>(path_prefix, date_list, <span class="st">&quot;.csv&quot;</span>) <span class="sc">%&gt;&gt;%</span> <span class="fu">as.list</span>()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the first file </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>data.table<span class="sc">::</span><span class="fu">fread</span>( file_list[[<span class="dv">1</span>]] ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>( <span class="at">name =</span> <span class="dv">1</span>, <span class="at">t_join =</span> <span class="dv">3</span>, <span class="at">t_leave =</span> <span class="dv">4</span> ) </span></code></pre></div>
-<pre><code>##                                  name                 t_join
-##  1:                         paulgross 11/04/2022 12:54:55 PM
-##  2:                           tmikami 11/04/2022 01:00:13 PM
-##  3:                              Marc 11/04/2022 01:00:42 PM
-##  4:                    Valeria’s iPad 11/04/2022 01:00:56 PM
-##  5:                           Camelia 11/04/2022 01:01:05 PM
-##  6:                           manizhe 11/04/2022 01:02:15 PM
-##  7:                  Rafail Chionatos 11/04/2022 01:02:54 PM
-##  8:                           Camelia 11/04/2022 01:03:26 PM
-##  9:                      Tufts RESPAR 11/04/2022 01:04:05 PM
-## 10:                             Firas 11/04/2022 01:04:55 PM
-## 11: Naman and Mustafa (Lahey general) 11/04/2022 01:05:58 PM
-## 12:                     Ivanna joseph 11/04/2022 01:07:23 PM
-## 13:                    Tufts (Alibay) 11/04/2022 01:08:22 PM
-## 14:      Yaw and Naz (Wenzheng Yu MD) 11/04/2022 01:08:26 PM
-## 15:                              Gaby 11/04/2022 01:12:33 PM
-## 16:                 Nikita srinivasan 11/04/2022 01:13:21 PM
-## 17:                              Gaby 11/04/2022 01:14:42 PM
-## 18:                             Ehsan 11/04/2022 01:16:24 PM
-## 19:                      Firas Bounni 11/04/2022 01:17:56 PM
-## 20:                   Alibay’s iPhone 11/04/2022 01:21:22 PM
-## 21:                           Mustafa 11/04/2022 01:25:20 PM
-## 22:                  Omniyah Alqassab 11/04/2022 01:31:51 PM
-## 23:                     Ivanna joseph 11/04/2022 01:39:59 PM
-## 24:                           manizhe 11/04/2022 01:43:06 PM
-## 25:           Camelia Valhuerdi Porto 11/04/2022 02:02:11 PM
-## 26:                 Nikita srinivasan 11/04/2022 02:04:07 PM
-## 27:                   Alibay’s iPhone 11/04/2022 02:06:25 PM
-## 28:                           Manizhe 11/04/2022 02:11:54 PM
-## 29:                           Marc D. 11/04/2022 02:13:28 PM
-## 30:                     Ivanna joseph 11/04/2022 02:15:39 PM
-## 31:                   Alibay’s iPhone 11/04/2022 02:18:11 PM
-## 32:                   Alibay’s iPhone 11/04/2022 02:46:57 PM
-## 33:                              Gaby 11/04/2022 02:55:04 PM
-## 34:                     Ivanna joseph 11/04/2022 02:58:00 PM
-## 35:                 Nikita srinivasan 11/04/2022 03:00:55 PM
-## 36:                  Omniyah Alqassab 11/04/2022 03:06:35 PM
-## 37:                   Alibay’s iPhone 11/04/2022 03:14:37 PM
-## 38:                   Alibay’s iPhone 11/04/2022 03:20:18 PM
-## 39:                   Alibay’s iPhone 11/04/2022 03:23:25 PM
-## 40:                     Ivanna joseph 11/04/2022 03:38:56 PM
-##                                  name                 t_join
-##                    t_leave
-##  1: 11/04/2022 02:43:33 PM
-##  2: 11/04/2022 04:00:12 PM
-##  3: 11/04/2022 02:13:40 PM
-##  4: 11/04/2022 04:00:16 PM
-##  5: 11/04/2022 01:03:16 PM
-##  6: 11/04/2022 01:38:32 PM
-##  7: 11/04/2022 04:00:21 PM
-##  8: 11/04/2022 01:05:08 PM
-##  9: 11/04/2022 04:00:17 PM
-## 10: 11/04/2022 01:18:06 PM
-## 11: 11/04/2022 04:23:38 PM
-## 12: 11/04/2022 01:13:56 PM
-## 13: 11/04/2022 01:58:33 PM
-## 14: 11/04/2022 05:13:49 PM
-## 15: 11/04/2022 01:14:35 PM
-## 16: 11/04/2022 02:03:45 PM
-## 17: 11/04/2022 02:55:23 PM
-## 18: 11/04/2022 04:00:09 PM
-## 19: 11/04/2022 04:00:24 PM
-## 20: 11/04/2022 01:59:18 PM
-## 21: 11/04/2022 03:10:57 PM
-## 22: 11/04/2022 03:05:55 PM
-## 23: 11/04/2022 01:46:55 PM
-## 24: 11/04/2022 02:12:05 PM
-## 25: 11/04/2022 04:00:16 PM
-## 26: 11/04/2022 02:44:37 PM
-## 27: 11/04/2022 02:18:10 PM
-## 28: 11/04/2022 04:00:11 PM
-## 29: 11/04/2022 04:00:16 PM
-## 30: 11/04/2022 02:44:07 PM
-## 31: 11/04/2022 02:41:36 PM
-## 32: 11/04/2022 03:13:52 PM
-## 33: 11/04/2022 04:00:13 PM
-## 34: 11/04/2022 03:20:12 PM
-## 35: 11/04/2022 04:00:06 PM
-## 36: 11/04/2022 04:00:11 PM
-## 37: 11/04/2022 03:20:00 PM
-## 38: 11/04/2022 03:22:58 PM
-## 39: 11/04/2022 04:33:47 PM
-## 40: 11/04/2022 03:59:35 PM
-##                    t_leave</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting names</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>func_convert_name <span class="ot">&lt;-</span> <span class="cf">function</span>( df ) {</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>( <span class="sc">!</span> <span class="fu">str_detect</span>( name, <span class="st">&quot;Suski|Agosto|Yerstein|PRO|12819396952|16177506418|Yakov|SUNY|OBH|Lerner|Kornbluth|tufts|ivia|Grace|Xuemei|iPhone|Ofori|RESPAR|paulgross&quot;</span> ) ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>( </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="fu">case_when</span>(</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;ikami&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Taka&quot;</span>, </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;Taka&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Taka&quot;</span>, </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;Valeria&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Valeria&quot;</span>, </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;Firas&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Firas&quot;</span>, </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;asaman&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Yasaman&quot;</span>, </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;asmine&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Yasaman&quot;</span>, </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;anizhe&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Manizhe&quot;</span>, </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;amelia&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Camelia&quot;</span>, </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;afail&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Rafail&quot;</span>,</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;vanna&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Ivanna&quot;</span>,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;Aya&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Aya&quot;</span>,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;ikita&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Nikita&quot;</span>,</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;aby&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Gaby&quot;</span>,</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;hsan&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Ehsan&quot;</span>,</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;mniyah&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Omniyah&quot;</span>,</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;az&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Naz&quot;</span>,</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;arc&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Marc&quot;</span>,</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;libay&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Alibay&quot;</span>,</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;naman&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Naman&quot;</span>,</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;Naman&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Naman&quot;</span>,</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;enzheng&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Wenzheng&quot;</span>,</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;ustafa&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Mustafa&quot;</span>,</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>( name, <span class="st">&quot;rsalan&quot;</span> ) <span class="sc">~</span> <span class="st">&quot;Arsalan&quot;</span>,</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> name</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    ) </span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidying files; removed overlapped times </span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>func_ahd_tidy <span class="ot">&lt;-</span> <span class="cf">function</span>( filename_i ) { </span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># temp_union = </span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  data.table<span class="sc">::</span><span class="fu">fread</span>( filename_i ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>( <span class="at">name =</span> <span class="dv">1</span>, <span class="at">t_join =</span> <span class="dv">3</span>, <span class="at">t_leave =</span> <span class="dv">4</span> ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">func_convert_name</span>() <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>( </span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">across</span>( <span class="fu">c</span>( t_join, t_leave ), <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">mdy_hms</span>(.x) )</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">indx =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">cumsum</span>(<span class="fu">as.numeric</span>(<span class="fu">lead</span>(t_join)) <span class="sc">&gt;</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">cummax</span>(<span class="fu">as.numeric</span>(t_leave)))[<span class="sc">-</span><span class="fu">n</span>()])) <span class="sc">%&gt;%</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name, indx) <span class="sc">%&gt;%</span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">t_join =</span> <span class="fu">first</span>(t_join), <span class="at">t_leave =</span> <span class="fu">last</span>(t_leave)) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">ungroup</span>() </span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>func_ahd_ModifyEndTime <span class="ot">&lt;-</span> <span class="cf">function</span>( i ) { </span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  df_leave <span class="ot">&lt;-</span> df_ahd_list[[i]] <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">group_by</span>( name ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>( <span class="at">max_t_leave =</span> <span class="fu">max</span>(t_leave) )</span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  median_t_leave <span class="ot">&lt;-</span> <span class="fu">median</span>(<span class="fu">sort</span>(df_leave<span class="sc">$</span>max_t_leave))</span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  df_ahd_list[[i]] <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_leave =</span> <span class="fu">if_else</span>( t_leave <span class="sc">&gt;</span> median_t_leave, median_t_leave, t_leave ) ) <span class="sc">%&gt;&gt;%</span></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="at">interval =</span> <span class="fu">time_length</span>(<span class="fu">interval</span>(t_join, t_leave), <span class="at">unit =</span> <span class="st">&quot;minutes&quot;</span>) ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">arrange</span>(name) <span class="sc">%&gt;&gt;%</span></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">group_by</span>(name) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>( </span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_join =</span> <span class="fu">min</span>(t_join), </span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_leave =</span> <span class="fu">max</span>(t_leave),</span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>      <span class="at">t_total =</span> <span class="fu">sum</span>(interval), </span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_login =</span> <span class="fu">n</span>()</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>      <span class="at">join_rate =</span> t_total <span class="sc">/</span> <span class="fu">max</span>(t_total)</span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">right_join</span>( df_rotation[<span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;class&quot;</span>, date_list[i])], <span class="at">by =</span> <span class="st">&quot;name&quot;</span> ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">rename</span>( <span class="at">rotation =</span> <span class="fu">ncol</span>(.) ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="fu">across</span>( t_total<span class="sc">:</span>join_rate, <span class="sc">~</span> <span class="fu">replace_na</span>( .x, <span class="dv">0</span> ) ) )</span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_ahd_list <span class="ot">&lt;-</span> file_list <span class="sc">%&gt;&gt;%</span> <span class="fu">lapply</span>( func_ahd_tidy )</span></code></pre></div>
+<pre class="r"><code>date_list &lt;- c(&quot;d1104&quot;, &quot;d1111&quot;, &quot;d1118&quot;, &quot;d1202&quot;) # , &quot;d1209&quot;
+path_prefix &lt;- paste0(home_path, &quot;/attendance_reports/participants_&quot;)
+file_list &lt;- paste0(path_prefix, date_list, &quot;.csv&quot;) %&gt;&gt;% as.list()
+
+# Take a look at the first 10 rows in the first file 
+data.table::fread( file_list[[1]] ) %&gt;&gt;% 
+    dplyr::select( name = 1, t_join = 3, t_leave = 4 ) %&gt;&gt;%
+  head(10) %&gt;&gt;% 
+  # gt()
+  kbl() %&gt;%
+  kable_paper(c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;), full_width = F)</code></pre>
+<table class=" lightable-paper lightable-striped lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+t_join
+</th>
+<th style="text-align:left;">
+t_leave
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+paulgross
+</td>
+<td style="text-align:left;">
+11/04/2022 12:54:55 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 02:43:33 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tmikami
+</td>
+<td style="text-align:left;">
+11/04/2022 01:00:13 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 04:00:12 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marc
+</td>
+<td style="text-align:left;">
+11/04/2022 01:00:42 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 02:13:40 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Valeria’s iPad
+</td>
+<td style="text-align:left;">
+11/04/2022 01:00:56 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 04:00:16 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Camelia
+</td>
+<td style="text-align:left;">
+11/04/2022 01:01:05 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 01:03:16 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+manizhe
+</td>
+<td style="text-align:left;">
+11/04/2022 01:02:15 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 01:38:32 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rafail Chionatos
+</td>
+<td style="text-align:left;">
+11/04/2022 01:02:54 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 04:00:21 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Camelia
+</td>
+<td style="text-align:left;">
+11/04/2022 01:03:26 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 01:05:08 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tufts RESPAR
+</td>
+<td style="text-align:left;">
+11/04/2022 01:04:05 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 04:00:17 PM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Firas
+</td>
+<td style="text-align:left;">
+11/04/2022 01:04:55 PM
+</td>
+<td style="text-align:left;">
+11/04/2022 01:18:06 PM
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Converting names
+func_convert_name &lt;- function( df ) {
+  df %&gt;&gt;%
+    dplyr::filter( ! str_detect( name, &quot;Suski|Agosto|Yerstein|PRO|12819396952|16177506418|Yakov|SUNY|OBH|Lerner|Kornbluth|tufts|ivia|Grace|Xuemei|iPhone|Ofori|RESPAR|paulgross&quot; ) ) %&gt;&gt;% 
+    dplyr::mutate( 
+      name = case_when(
+        str_detect( name, &quot;ikami&quot; ) ~ &quot;Taka&quot;, 
+        str_detect( name, &quot;Taka&quot; ) ~ &quot;Taka&quot;, 
+        str_detect( name, &quot;Valeria&quot; ) ~ &quot;Valeria&quot;, 
+        str_detect( name, &quot;Firas&quot; ) ~ &quot;Firas&quot;, 
+        str_detect( name, &quot;asaman&quot; ) ~ &quot;Yasaman&quot;, 
+        str_detect( name, &quot;asmine&quot; ) ~ &quot;Yasaman&quot;, 
+        str_detect( name, &quot;anizhe&quot; ) ~ &quot;Manizhe&quot;, 
+        str_detect( name, &quot;amelia&quot; ) ~ &quot;Camelia&quot;, 
+        str_detect( name, &quot;afail&quot; ) ~ &quot;Rafail&quot;,
+        str_detect( name, &quot;vanna&quot; ) ~ &quot;Ivanna&quot;,
+        str_detect( name, &quot;Aya&quot; ) ~ &quot;Aya&quot;,
+        str_detect( name, &quot;ikita&quot; ) ~ &quot;Nikita&quot;,
+        str_detect( name, &quot;aby&quot; ) ~ &quot;Gaby&quot;,
+        str_detect( name, &quot;hsan&quot; ) ~ &quot;Ehsan&quot;,
+        str_detect( name, &quot;mniyah&quot; ) ~ &quot;Omniyah&quot;,
+        str_detect( name, &quot;az&quot; ) ~ &quot;Naz&quot;,
+        str_detect( name, &quot;arc&quot; ) ~ &quot;Marc&quot;,
+        str_detect( name, &quot;libay&quot; ) ~ &quot;Alibay&quot;,
+        str_detect( name, &quot;naman&quot; ) ~ &quot;Naman&quot;,
+        str_detect( name, &quot;Naman&quot; ) ~ &quot;Naman&quot;,
+        str_detect( name, &quot;enzheng&quot; ) ~ &quot;Wenzheng&quot;,
+        str_detect( name, &quot;ustafa&quot; ) ~ &quot;Mustafa&quot;,
+        str_detect( name, &quot;rsalan&quot; ) ~ &quot;Arsalan&quot;,
+        TRUE ~ name
+      )
+    ) 
+}
+
+# Tidying files; removed overlapped times 
+func_ahd_tidy &lt;- function( filename_i ) { 
+  # temp_union = 
+  data.table::fread( filename_i ) %&gt;&gt;% 
+    dplyr::select( name = 1, t_join = 3, t_leave = 4 ) %&gt;&gt;% 
+    func_convert_name() %&gt;&gt;% 
+    dplyr::mutate( 
+      across( c( t_join, t_leave ), ~ lubridate::mdy_hms(.x) )
+    ) %&gt;&gt;% 
+    group_by(name) %&gt;%
+    mutate(indx = c(0, cumsum(as.numeric(lead(t_join)) &gt;
+                                cummax(as.numeric(t_leave)))[-n()])) %&gt;%
+    group_by(name, indx) %&gt;%
+    summarise(t_join = first(t_join), t_leave = last(t_leave)) %&gt;&gt;% 
+    dplyr::ungroup() 
+}
+
+func_ahd_ModifyEndTime &lt;- function( i ) { 
+  df_leave &lt;- df_ahd_list[[i]] %&gt;&gt;% 
+    dplyr::group_by( name ) %&gt;&gt;% 
+    dplyr::summarise( max_t_leave = max(t_leave) )
+  median_t_leave &lt;- median(sort(df_leave$max_t_leave))
+  df_ahd_list[[i]] %&gt;&gt;% 
+    dplyr::mutate(
+      t_leave = if_else( t_leave &gt; median_t_leave, median_t_leave, t_leave ) ) %&gt;&gt;%
+    
+    dplyr::mutate( interval = time_length(interval(t_join, t_leave), unit = &quot;minutes&quot;) ) %&gt;&gt;% 
+    dplyr::arrange(name) %&gt;&gt;%
+    dplyr::group_by(name) %&gt;&gt;% 
+    dplyr::summarise( 
+      t_join = min(t_join), 
+      t_leave = max(t_leave),
+      t_total = sum(interval), 
+      n_login = n()
+    ) %&gt;&gt;% 
+    dplyr::ungroup() %&gt;&gt;% 
+    dplyr::mutate(
+      join_rate = t_total / max(t_total)
+    ) %&gt;&gt;% 
+  dplyr::right_join( df_rotation[c(&quot;name&quot;, &quot;class&quot;, date_list[i])], by = &quot;name&quot; ) %&gt;&gt;% 
+    dplyr::rename( rotation = ncol(.) ) %&gt;&gt;% 
+    dplyr::mutate( across( t_total:join_rate, ~ replace_na( .x, 0 ) ) )
+}</code></pre>
+<pre class="r"><code>df_ahd_list &lt;- file_list %&gt;&gt;% lapply( func_ahd_tidy )</code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups` argument.
 ## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups` argument.
 ## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups` argument.
 ## `summarise()` has grouped output by &#39;name&#39;. You can override using the `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_ahd_list</span></code></pre></div>
+<pre class="r"><code>df_ahd_list</code></pre>
 <pre><code>## [[1]]
 ## # A tibble: 27 × 4
 ##    name     indx t_join              t_leave            
@@ -1203,18 +1137,18 @@ NF
 ##  9 Firas       5 2022-12-02 15:10:40 2022-12-02 16:25:51
 ## 10 Ivanna      0 2022-12-02 13:08:37 2022-12-02 13:25:11
 ## # … with 17 more rows</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_ahd_tidy <span class="ot">&lt;-</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map_df</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, func_ahd_ModifyEndTime ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>( name )</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>df_ahd_tidy<span class="sc">$</span>res_id <span class="ot">&lt;-</span> <span class="fu">as.factor</span>( <span class="fu">match</span>(df_ahd_tidy<span class="sc">$</span>name, <span class="fu">sample</span>(<span class="fu">unique</span>(df_ahd_tidy<span class="sc">$</span>name))) )</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>df_rotation_mean <span class="ot">&lt;-</span> df_ahd_tidy <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(rotation) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>( <span class="at">rate_mean =</span> <span class="fu">mean</span>(join_rate) ) <span class="sc">%&gt;&gt;%</span> </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>( rate_mean )</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>df_ahd_tidy <span class="ot">&lt;-</span> df_ahd_tidy <span class="sc">%&gt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="at">rotation =</span> <span class="fu">fct_relevel</span>( rotation, df_rotation_mean<span class="sc">$</span>rotation ) ) </span></code></pre></div>
+<pre class="r"><code>df_ahd_tidy &lt;- 
+  purrr::map_df( 1:4, func_ahd_ModifyEndTime ) %&gt;&gt;% 
+  as.data.frame() %&gt;&gt;% 
+  dplyr::arrange( name )
+
+df_ahd_tidy$res_id &lt;- as.factor( match(df_ahd_tidy$name, sample(unique(df_ahd_tidy$name))) )
+df_rotation_mean &lt;- df_ahd_tidy %&gt;&gt;% 
+  dplyr::group_by(rotation) %&gt;&gt;% 
+  dplyr::summarise( rate_mean = mean(join_rate) ) %&gt;&gt;% 
+  dplyr::arrange( rate_mean )
+
+df_ahd_tidy &lt;- df_ahd_tidy %&gt;&gt;% dplyr::mutate( rotation = fct_relevel( rotation, df_rotation_mean$rotation ) ) </code></pre>
 <p><img src="tufts_AHD_attendance_files/figure-html/Participation%20rate%20for%20each%20rotation-1.png" width="672" /></p>
 <p><img src="tufts_AHD_attendance_files/figure-html/The%20number%20of%20login%20for%20each%20rotation-1.png" width="672" /></p>
 </div>

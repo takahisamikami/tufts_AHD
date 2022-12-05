@@ -1,3 +1,6 @@
+# prettydoc::html_pretty:
+#   theme: leonids
+
 
 
 if (!require("pacman")) { install.packages("pacman") }
