@@ -434,7 +434,7 @@ glm_model <- geepack::geeglm(
 
 ```
 
-
+<br>
 
 # Limitation 
 Not reflected in the data include: 
