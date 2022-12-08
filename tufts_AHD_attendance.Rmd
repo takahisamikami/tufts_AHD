@@ -21,7 +21,7 @@ if (!require("remotes")) { install.packages("remotes") }
 ```
 
 # Objective
-To understand if there is a specific rotation that always leads to joining late AHD. 
+To investigate if there is a specific rotation that always leads to residents being unable to join AHD on time. 
 
 <br>
 
