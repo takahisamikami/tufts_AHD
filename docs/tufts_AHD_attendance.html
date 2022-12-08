@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="tmikami" />
+<meta name="author" content="Takahisa Mikami" />
 
 <meta name="date" content="2022-12-05" />
 
@@ -328,9 +328,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="README.html">README</a>
-</li>
-<li>
   <a href="tufts_AHD_attendance.html">AHD attendance</a>
 </li>
       </ul>
@@ -354,7 +351,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">AHD attendance</h1>
-<h4 class="author">tmikami</h4>
+<h4 class="author">Takahisa Mikami</h4>
 <h4 class="date">2022-12-05</h4>
 
 </div>
@@ -367,6 +364,7 @@ if (!require(&quot;remotes&quot;)) { install.packages(&quot;remotes&quot;) }</co
 <h1>Objective</h1>
 <p>To understand if there is a specific rotation that always leads to
 joining late AHD.</p>
+<p><br></p>
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
@@ -375,6 +373,7 @@ joining late AHD.</p>
 <li>Periods: 11/4-12/2 (4 weeks; excluding 11/25 because there was no
 AHD)</li>
 </ul>
+<p><br></p>
 </div>
 <div id="looking-at-data" class="section level1">
 <h1>Looking at Data</h1>
@@ -1626,12 +1625,13 @@ df_ahd_tidy &lt;- df_ahd_tidy %&gt;&gt;%
 total time one logged in the AHD) / (median value of the total login
 time)”</p>
 <ul>
-<li>Black dots are mean value for each rotaiton</li>
+<li>Black dots indicate mean values for each rotation</li>
 </ul>
 <p><strong><em>Number of login</em></strong> = How many times one had to
 login/logout during AHD</p>
 <p><strong><em>Delay in login</em></strong> = How many minutes after 1pm
 one joined AHD</p>
+<p><br></p>
 <p><img src="tufts_AHD_attendance_files/figure-html/Participation%20rate%20for%20each%20rotation-1.png" width="768" />
 <br> <br></p>
 </div>
@@ -1642,12 +1642,12 @@ one joined AHD</p>
 </div>
 <div id="limitation" class="section level1">
 <h1>Limitation</h1>
-<p>Not reflected in the data include: - Tufts consult residents logged
-in but had to continue to work on notes or see pending consult (once) -
+<p>Not reflected in the data include: * Tufts consult residents logged
+in but had to continue to work on notes or see pending consult (once) *
 Lahey Jr had to go to stroke code just before 1pm, and/or had to leave
-on 4:30 pm while AHD lasts until 5pm (once) - Lahey Sr had to do write
+on 4:30 pm while AHD lasts until 5pm (once) * Lahey Sr had to do write
 notes while taking over the pager when Lahey Jr is seeing stroke codes
-(once) - Tufts Sr had to do family meeting (once)</p>
+(once) * Tufts Sr had to do family meeting (once)</p>
 </div>
 
 

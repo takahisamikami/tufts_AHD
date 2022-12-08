@@ -2,8 +2,6 @@ name: "TuftsNeurology"
 navbar:
   title: "TuftsNeurology"
   left: 
-    - text: "README"
-      href: "README.html"
     - text: "AHD attendance"
       href: "tufts_AHD_attendance.html"
 output:
