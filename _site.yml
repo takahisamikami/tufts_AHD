@@ -4,6 +4,8 @@ navbar:
   left: 
     - text: "AHD attendance"
       href: "tufts_AHD_attendance.html"
+    - text: "R demo/intro"
+      href: "R_demo_with_tableone_LogisticRegression.html"
 output:
   html_document:
     css: site_style.css

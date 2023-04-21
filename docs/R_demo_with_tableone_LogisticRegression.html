@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Takahisa Mikami" />
+
+<meta name="date" content="2023-04-21" />
+
+<title>Intro to R</title>
+
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="site_style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">TuftsNeurology</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="tufts_AHD_attendance.html">AHD attendance</a>
+</li>
+<li>
+  <a href="R_demo_with_tableone_LogisticRegression.html">R demo/intro</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Intro to R</h1>
+<h4 class="author">Takahisa Mikami</h4>
+<h4 class="date">2023-04-21</h4>
+
+</div>
+
+
+<pre class="r"><code>## tableone package itself
+# install.packages(&#39;tableone&#39;)
+library(tableone)
+## survival package for Mayo Clinic&#39;s PBC data
+library(survival)
+
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(pipeR)
+library(broom)</code></pre>
+<div id="dataset" class="section level1">
+<h1>Dataset</h1>
+<p>Data “pbc”</p>
+<p>Mayo Clinic Primary Biliary Cholangitis Data</p>
+<p>Primary sclerosing cholangitis is an autoimmune disease leading to
+destruction of the small bile ducts in the liver. Progression is slow
+but inexhortable, eventually leading to cirrhosis and liver
+decompensation. The condition has been recognised since at least 1851
+and was named “primary biliary cirrhosis” in 1949. Because cirrhosis is
+a feature only of advanced disease, a change of its name to “primary
+biliary cholangitis” was proposed by patient advocacy groups in 2014.
+This data is from the Mayo Clinic trial in PBC conducted between 1974
+and 1984. A total of 424 PBC patients, referred to Mayo Clinic during
+that ten-year interval, met eligibility criteria for the randomized
+placebo controlled trial of the drug D-penicillamine. The first 312
+cases in the data set participated in the randomized trial and contain
+largely complete data. The additional 112 cases did not participate in
+the clinical trial, but consented to have basic measurements recorded
+and to be followed for survival. Six of those cases were lost to
+follow-up shortly after diagnosis, so the data here are on an additional
+106 cases as well as the 312 randomized participants.</p>
+<p>Type <code>?pbc</code> for more explanation.</p>
+</div>
+<div id="createtableone" class="section level1">
+<h1>CreateTableOne</h1>
+<div id="read-data" class="section level2">
+<h2>Read data</h2>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/TakahisaMikami/drive/0.NeuroEducation/Tufts_education/AHD/AHD_participants/tufts_AHD&quot;</code></pre>
+<pre class="r"><code>pbc &lt;- read.csv(file = &quot;./import/pbc.csv&quot;)
+head(pbc)</code></pre>
+<pre><code>##   X id time status trt      age sex ascites hepato spiders edema bili chol
+## 1 1  1  400      2   1 58.76523   f       1      1       1   1.0 14.5  261
+## 2 2  2 4500      0   1 56.44627   f       0      1       1   0.0  1.1  302
+## 3 3  3 1012      2   1 70.07255   m       0      0       0   0.5  1.4  176
+## 4 4  4 1925      2   1 54.74059   f       0      1       1   0.5  1.8  244
+## 5 5  5 1504      1   2 38.10541   f       0      1       1   0.0  3.4  279
+## 6 6  6 2503      2   2 66.25873   f       0      1       0   0.0  0.8  248
+##   albumin copper alk.phos    ast trig platelet protime stage
+## 1    2.60    156   1718.0 137.95  172      190    12.2     4
+## 2    4.14     54   7394.8 113.52   88      221    10.6     3
+## 3    3.48    210    516.0  96.10   55      151    12.0     4
+## 4    2.54     64   6121.8  60.63   92      183    10.3     4
+## 5    3.53    143    671.0 113.15   72      136    10.9     3
+## 6    3.98     50    944.0  93.00   63       NA    11.0     3</code></pre>
+<pre class="r"><code># data(pbc)
+# ?pbc</code></pre>
+<pre class="r"><code># Single group summary ###############
+CreateTableOne(data = pbc)</code></pre>
+<pre><code>##                       
+##                        Overall          
+##   n                        418          
+##   X (mean (SD))         209.50 (120.81) 
+##   id (mean (SD))        209.50 (120.81) 
+##   time (mean (SD))     1917.78 (1104.67)
+##   status (mean (SD))      0.83 (0.96)   
+##   trt (mean (SD))         1.49 (0.50)   
+##   age (mean (SD))        50.74 (10.45)  
+##   sex = m (%)               44 (10.5)   
+##   ascites (mean (SD))     0.08 (0.27)   
+##   hepato (mean (SD))      0.51 (0.50)   
+##   spiders (mean (SD))     0.29 (0.45)   
+##   edema (mean (SD))       0.10 (0.25)   
+##   bili (mean (SD))        3.22 (4.41)   
+##   chol (mean (SD))      369.51 (231.94) 
+##   albumin (mean (SD))     3.50 (0.42)   
+##   copper (mean (SD))     97.65 (85.61)  
+##   alk.phos (mean (SD)) 1982.66 (2140.39)
+##   ast (mean (SD))       122.56 (56.70)  
+##   trig (mean (SD))      124.70 (65.15)  
+##   platelet (mean (SD))  257.02 (98.33)  
+##   protime (mean (SD))    10.73 (1.02)   
+##   stage (mean (SD))       3.02 (0.88)</code></pre>
+</div>
+<div id="get-column-names" class="section level2">
+<h2>Get column names</h2>
+<pre class="r"><code>## Get variables names
+# dput(names(pbc))
+names(pbc)</code></pre>
+<pre><code>##  [1] &quot;X&quot;        &quot;id&quot;       &quot;time&quot;     &quot;status&quot;   &quot;trt&quot;      &quot;age&quot;     
+##  [7] &quot;sex&quot;      &quot;ascites&quot;  &quot;hepato&quot;   &quot;spiders&quot;  &quot;edema&quot;    &quot;bili&quot;    
+## [13] &quot;chol&quot;     &quot;albumin&quot;  &quot;copper&quot;   &quot;alk.phos&quot; &quot;ast&quot;      &quot;trig&quot;    
+## [19] &quot;platelet&quot; &quot;protime&quot;  &quot;stage&quot;</code></pre>
+<pre class="r"><code>colnames(pbc)</code></pre>
+<pre><code>##  [1] &quot;X&quot;        &quot;id&quot;       &quot;time&quot;     &quot;status&quot;   &quot;trt&quot;      &quot;age&quot;     
+##  [7] &quot;sex&quot;      &quot;ascites&quot;  &quot;hepato&quot;   &quot;spiders&quot;  &quot;edema&quot;    &quot;bili&quot;    
+## [13] &quot;chol&quot;     &quot;albumin&quot;  &quot;copper&quot;   &quot;alk.phos&quot; &quot;ast&quot;      &quot;trig&quot;    
+## [19] &quot;platelet&quot; &quot;protime&quot;  &quot;stage&quot;</code></pre>
+</div>
+<div id="get-column-names-1" class="section level2">
+<h2>Get column names</h2>
+<pre class="r"><code>## Vector of variables to summarize
+myVars &lt;- c(&quot;time&quot;, &quot;status&quot;, &quot;trt&quot;, &quot;age&quot;, &quot;sex&quot;, &quot;ascites&quot;, &quot;hepato&quot;,
+            &quot;spiders&quot;, &quot;edema&quot;, &quot;bili&quot;, &quot;chol&quot;, &quot;albumin&quot;, &quot;copper&quot;, &quot;alk.phos&quot;,
+            &quot;ast&quot;, &quot;trig&quot;, &quot;platelet&quot;, &quot;protime&quot;, &quot;stage&quot;)
+## Vector of categorical variables that need transformation
+catVars &lt;- c(&quot;sex&quot;, &quot;status&quot;, &quot;trt&quot;, &quot;ascites&quot;, &quot;hepato&quot;,
+             &quot;spiders&quot;, &quot;edema&quot;, &quot;stage&quot;)
+## Create a TableOne object
+tab2 &lt;- CreateTableOne(vars = myVars, data = pbc, factorVars = catVars)
+
+
+tab2</code></pre>
+<pre><code>##                       
+##                        Overall          
+##   n                        418          
+##   time (mean (SD))     1917.78 (1104.67)
+##   status (%)                            
+##      0                     232 (55.5)   
+##      1                      25 ( 6.0)   
+##      2                     161 (38.5)   
+##   trt = 2 (%)              154 (49.4)   
+##   age (mean (SD))        50.74 (10.45)  
+##   sex = m (%)               44 (10.5)   
+##   ascites = 1 (%)           24 ( 7.7)   
+##   hepato = 1 (%)           160 (51.3)   
+##   spiders = 1 (%)           90 (28.8)   
+##   edema (%)                             
+##      0                     354 (84.7)   
+##      0.5                    44 (10.5)   
+##      1                      20 ( 4.8)   
+##   bili (mean (SD))        3.22 (4.41)   
+##   chol (mean (SD))      369.51 (231.94) 
+##   albumin (mean (SD))     3.50 (0.42)   
+##   copper (mean (SD))     97.65 (85.61)  
+##   alk.phos (mean (SD)) 1982.66 (2140.39)
+##   ast (mean (SD))       122.56 (56.70)  
+##   trig (mean (SD))      124.70 (65.15)  
+##   platelet (mean (SD))  257.02 (98.33)  
+##   protime (mean (SD))    10.73 (1.02)   
+##   stage (%)                             
+##      1                      21 ( 5.1)   
+##      2                      92 (22.3)   
+##      3                     155 (37.6)   
+##      4                     144 (35.0)</code></pre>
+</div>
+<div id="non-normal-biomarkers" class="section level2">
+<h2>Non-normal biomarkers</h2>
+<pre class="r"><code># Showing all levels for categorical variables ###############
+# print(tab2, showAllLevels = TRUE) # , formatOptions = list(big.mark = &quot;,&quot;)
+
+
+
+# summary(tab2)
+
+# Summarizing nonnormal variables ###############
+biomarkers &lt;- c(&quot;bili&quot;,&quot;chol&quot;,&quot;copper&quot;,&quot;alk.phos&quot;,&quot;ast&quot;,&quot;trig&quot;,&quot;protime&quot;)
+print(tab2, nonnormal = biomarkers, formatOptions = list(big.mark = &quot;,&quot;) )</code></pre>
+<pre><code>##                          
+##                           Overall                    
+##   n                            418                   
+##   time (mean (SD))        1,917.78 (1,104.67)        
+##   status (%)                                         
+##      0                         232 (55.5)            
+##      1                          25 ( 6.0)            
+##      2                         161 (38.5)            
+##   trt = 2 (%)                  154 (49.4)            
+##   age (mean (SD))            50.74 (10.45)           
+##   sex = m (%)                   44 (10.5)            
+##   ascites = 1 (%)               24 ( 7.7)            
+##   hepato = 1 (%)               160 (51.3)            
+##   spiders = 1 (%)               90 (28.8)            
+##   edema (%)                                          
+##      0                         354 (84.7)            
+##      0.5                        44 (10.5)            
+##      1                          20 ( 4.8)            
+##   bili (median [IQR])         1.40 [0.80, 3.40]      
+##   chol (median [IQR])       309.50 [249.50, 400.00]  
+##   albumin (mean (SD))         3.50 (0.42)            
+##   copper (median [IQR])      73.00 [41.25, 123.00]   
+##   alk.phos (median [IQR]) 1,259.00 [871.50, 1,980.00]
+##   ast (median [IQR])        114.70 [80.60, 151.90]   
+##   trig (median [IQR])       108.00 [84.25, 151.00]   
+##   platelet (mean (SD))      257.02 (98.33)           
+##   protime (median [IQR])     10.60 [10.00, 11.10]    
+##   stage (%)                                          
+##      1                          21 ( 5.1)            
+##      2                          92 (22.3)            
+##      3                         155 (37.6)            
+##      4                         144 (35.0)</code></pre>
+</div>
+<div id="stratification" class="section level2">
+<h2>Stratification</h2>
+<pre class="r"><code># Multiple group summary ###############
+tab3 &lt;- CreateTableOne(vars = myVars, strata = &quot;trt&quot; , data = pbc, factorVars = catVars)
+print(tab3, nonnormal = biomarkers) # , formatOptions = list(big.mark = &quot;,&quot;)</code></pre>
+<pre><code>##                          Stratified by trt
+##                           1                         2                        
+##   n                           158                       154                  
+##   time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)        
+##   status (%)                                                                 
+##      0                         83 (52.5)                 85 ( 55.2)          
+##      1                         10 ( 6.3)                  9 (  5.8)          
+##      2                         65 (41.1)                 60 ( 39.0)          
+##   trt = 2 (%)                   0 ( 0.0)                154 (100.0)          
+##   age (mean (SD))           51.42 (11.01)             48.58 (9.96)           
+##   sex = m (%)                  21 (13.3)                 15 (  9.7)          
+##   ascites = 1 (%)              14 ( 8.9)                 10 (  6.5)          
+##   hepato = 1 (%)               73 (46.2)                 87 ( 56.5)          
+##   spiders = 1 (%)              45 (28.5)                 45 ( 29.2)          
+##   edema (%)                                                                  
+##      0                        132 (83.5)                131 ( 85.1)          
+##      0.5                       16 (10.1)                 13 (  8.4)          
+##      1                         10 ( 6.3)                 10 (  6.5)          
+##   bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]     
+##   chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00] 
+##   albumin (mean (SD))        3.52 (0.44)               3.52 (0.40)           
+##   copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]  
+##   alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]
+##   ast (median [IQR])       111.60 [76.73, 151.51]    117.40 [83.78, 151.90]  
+##   trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]  
+##   platelet (mean (SD))     258.75 (100.32)           265.20 (90.73)          
+##   protime (median [IQR])    10.60 [10.03, 11.00]      10.60 [10.00, 11.40]   
+##   stage (%)                                                                  
+##      1                         12 ( 7.6)                  4 (  2.6)          
+##      2                         35 (22.2)                 32 ( 20.8)          
+##      3                         56 (35.4)                 64 ( 41.6)          
+##      4                         55 (34.8)                 54 ( 35.1)          
+##                          Stratified by trt
+##                           p      test   
+##   n                                     
+##   time (mean (SD))         0.883        
+##   status (%)               0.894        
+##      0                                  
+##      1                                  
+##      2                                  
+##   trt = 2 (%)             &lt;0.001        
+##   age (mean (SD))          0.018        
+##   sex = m (%)              0.421        
+##   ascites = 1 (%)          0.567        
+##   hepato = 1 (%)           0.088        
+##   spiders = 1 (%)          0.985        
+##   edema (%)                0.877        
+##      0                                  
+##      0.5                                
+##      1                                  
+##   bili (median [IQR])      0.842 nonnorm
+##   chol (median [IQR])      0.544 nonnorm
+##   albumin (mean (SD))      0.874        
+##   copper (median [IQR])    0.717 nonnorm
+##   alk.phos (median [IQR])  0.812 nonnorm
+##   ast (median [IQR])       0.459 nonnorm
+##   trig (median [IQR])      0.370 nonnorm
+##   platelet (mean (SD))     0.555        
+##   protime (median [IQR])   0.588 nonnorm
+##   stage (%)                0.201        
+##      1                                  
+##      2                                  
+##      3                                  
+##      4</code></pre>
+</div>
+<div id="changing-statistical-methods" class="section level2">
+<h2>Changing statistical methods</h2>
+<pre class="r"><code># kruskal.test() is used for the nonnormal continous variables and 
+# fisher.test() is used for categorical variables specified in the exact argument. 
+# kruskal.test() is equivalent to wilcox.test() in the two-group case
+
+print(tab3, nonnormal = biomarkers, exact = &quot;stage&quot;) # , smd = TRUE</code></pre>
+<pre><code>##                          Stratified by trt
+##                           1                         2                        
+##   n                           158                       154                  
+##   time (mean (SD))        2015.62 (1094.12)         1996.86 (1155.93)        
+##   status (%)                                                                 
+##      0                         83 (52.5)                 85 ( 55.2)          
+##      1                         10 ( 6.3)                  9 (  5.8)          
+##      2                         65 (41.1)                 60 ( 39.0)          
+##   trt = 2 (%)                   0 ( 0.0)                154 (100.0)          
+##   age (mean (SD))           51.42 (11.01)             48.58 (9.96)           
+##   sex = m (%)                  21 (13.3)                 15 (  9.7)          
+##   ascites = 1 (%)              14 ( 8.9)                 10 (  6.5)          
+##   hepato = 1 (%)               73 (46.2)                 87 ( 56.5)          
+##   spiders = 1 (%)              45 (28.5)                 45 ( 29.2)          
+##   edema (%)                                                                  
+##      0                        132 (83.5)                131 ( 85.1)          
+##      0.5                       16 (10.1)                 13 (  8.4)          
+##      1                         10 ( 6.3)                 10 (  6.5)          
+##   bili (median [IQR])        1.40 [0.80, 3.20]         1.30 [0.72, 3.60]     
+##   chol (median [IQR])      315.50 [247.75, 417.00]   303.50 [254.25, 377.00] 
+##   albumin (mean (SD))        3.52 (0.44)               3.52 (0.40)           
+##   copper (median [IQR])     73.00 [40.00, 121.00]     73.00 [43.00, 139.00]  
+##   alk.phos (median [IQR]) 1214.50 [840.75, 2028.00] 1283.00 [922.50, 1949.75]
+##   ast (median [IQR])       111.60 [76.73, 151.51]    117.40 [83.78, 151.90]  
+##   trig (median [IQR])      106.00 [84.50, 146.00]    113.00 [84.50, 155.00]  
+##   platelet (mean (SD))     258.75 (100.32)           265.20 (90.73)          
+##   protime (median [IQR])    10.60 [10.03, 11.00]      10.60 [10.00, 11.40]   
+##   stage (%)                                                                  
+##      1                         12 ( 7.6)                  4 (  2.6)          
+##      2                         35 (22.2)                 32 ( 20.8)          
+##      3                         56 (35.4)                 64 ( 41.6)          
+##      4                         55 (34.8)                 54 ( 35.1)          
+##                          Stratified by trt
+##                           p      test   
+##   n                                     
+##   time (mean (SD))         0.883        
+##   status (%)               0.894        
+##      0                                  
+##      1                                  
+##      2                                  
+##   trt = 2 (%)             &lt;0.001        
+##   age (mean (SD))          0.018        
+##   sex = m (%)              0.421        
+##   ascites = 1 (%)          0.567        
+##   hepato = 1 (%)           0.088        
+##   spiders = 1 (%)          0.985        
+##   edema (%)                0.877        
+##      0                                  
+##      0.5                                
+##      1                                  
+##   bili (median [IQR])      0.842 nonnorm
+##   chol (median [IQR])      0.544 nonnorm
+##   albumin (mean (SD))      0.874        
+##   copper (median [IQR])    0.717 nonnorm
+##   alk.phos (median [IQR])  0.812 nonnorm
+##   ast (median [IQR])       0.459 nonnorm
+##   trig (median [IQR])      0.370 nonnorm
+##   platelet (mean (SD))     0.555        
+##   protime (median [IQR])   0.588 nonnorm
+##   stage (%)                0.205 exact  
+##      1                                  
+##      2                                  
+##      3                                  
+##      4</code></pre>
+</div>
+<div id="exporting-table-one" class="section level2">
+<h2>Exporting table one</h2>
+<pre class="r"><code># Exporting ###############
+# Quick and dirty way
+print(tab3, nonnormal = biomarkers, exact = &quot;stage&quot;, quote = TRUE, noSpaces = TRUE)</code></pre>
+<pre><code>##                            &quot;Stratified by trt&quot;
+##  &quot;&quot;                         &quot;1&quot;                        
+##   &quot;n&quot;                       &quot;158&quot;                      
+##   &quot;time (mean (SD))&quot;        &quot;2015.62 (1094.12)&quot;        
+##   &quot;status (%)&quot;              &quot;&quot;                         
+##   &quot;   0&quot;                    &quot;83 (52.5)&quot;                
+##   &quot;   1&quot;                    &quot;10 (6.3)&quot;                 
+##   &quot;   2&quot;                    &quot;65 (41.1)&quot;                
+##   &quot;trt = 2 (%)&quot;             &quot;0 (0.0)&quot;                  
+##   &quot;age (mean (SD))&quot;         &quot;51.42 (11.01)&quot;            
+##   &quot;sex = m (%)&quot;             &quot;21 (13.3)&quot;                
+##   &quot;ascites = 1 (%)&quot;         &quot;14 (8.9)&quot;                 
+##   &quot;hepato = 1 (%)&quot;          &quot;73 (46.2)&quot;                
+##   &quot;spiders = 1 (%)&quot;         &quot;45 (28.5)&quot;                
+##   &quot;edema (%)&quot;               &quot;&quot;                         
+##   &quot;   0&quot;                    &quot;132 (83.5)&quot;               
+##   &quot;   0.5&quot;                  &quot;16 (10.1)&quot;                
+##   &quot;   1&quot;                    &quot;10 (6.3)&quot;                 
+##   &quot;bili (median [IQR])&quot;     &quot;1.40 [0.80, 3.20]&quot;        
+##   &quot;chol (median [IQR])&quot;     &quot;315.50 [247.75, 417.00]&quot;  
+##   &quot;albumin (mean (SD))&quot;     &quot;3.52 (0.44)&quot;              
+##   &quot;copper (median [IQR])&quot;   &quot;73.00 [40.00, 121.00]&quot;    
+##   &quot;alk.phos (median [IQR])&quot; &quot;1214.50 [840.75, 2028.00]&quot;
+##   &quot;ast (median [IQR])&quot;      &quot;111.60 [76.73, 151.51]&quot;   
+##   &quot;trig (median [IQR])&quot;     &quot;106.00 [84.50, 146.00]&quot;   
+##   &quot;platelet (mean (SD))&quot;    &quot;258.75 (100.32)&quot;          
+##   &quot;protime (median [IQR])&quot;  &quot;10.60 [10.03, 11.00]&quot;     
+##   &quot;stage (%)&quot;               &quot;&quot;                         
+##   &quot;   1&quot;                    &quot;12 (7.6)&quot;                 
+##   &quot;   2&quot;                    &quot;35 (22.2)&quot;                
+##   &quot;   3&quot;                    &quot;56 (35.4)&quot;                
+##   &quot;   4&quot;                    &quot;55 (34.8)&quot;                
+##                            &quot;Stratified by trt&quot;
+##  &quot;&quot;                         &quot;2&quot;                         &quot;p&quot;      &quot;test&quot;   
+##   &quot;n&quot;                       &quot;154&quot;                       &quot;&quot;       &quot;&quot;       
+##   &quot;time (mean (SD))&quot;        &quot;1996.86 (1155.93)&quot;         &quot;0.883&quot;  &quot;&quot;       
+##   &quot;status (%)&quot;              &quot;&quot;                          &quot;0.894&quot;  &quot;&quot;       
+##   &quot;   0&quot;                    &quot;85 (55.2)&quot;                 &quot;&quot;       &quot;&quot;       
+##   &quot;   1&quot;                    &quot;9 (5.8)&quot;                   &quot;&quot;       &quot;&quot;       
+##   &quot;   2&quot;                    &quot;60 (39.0)&quot;                 &quot;&quot;       &quot;&quot;       
+##   &quot;trt = 2 (%)&quot;             &quot;154 (100.0)&quot;               &quot;&lt;0.001&quot; &quot;&quot;       
+##   &quot;age (mean (SD))&quot;         &quot;48.58 (9.96)&quot;              &quot;0.018&quot;  &quot;&quot;       
+##   &quot;sex = m (%)&quot;             &quot;15 (9.7)&quot;                  &quot;0.421&quot;  &quot;&quot;       
+##   &quot;ascites = 1 (%)&quot;         &quot;10 (6.5)&quot;                  &quot;0.567&quot;  &quot;&quot;       
+##   &quot;hepato = 1 (%)&quot;          &quot;87 (56.5)&quot;                 &quot;0.088&quot;  &quot;&quot;       
+##   &quot;spiders = 1 (%)&quot;         &quot;45 (29.2)&quot;                 &quot;0.985&quot;  &quot;&quot;       
+##   &quot;edema (%)&quot;               &quot;&quot;                          &quot;0.877&quot;  &quot;&quot;       
+##   &quot;   0&quot;                    &quot;131 (85.1)&quot;                &quot;&quot;       &quot;&quot;       
+##   &quot;   0.5&quot;                  &quot;13 (8.4)&quot;                  &quot;&quot;       &quot;&quot;       
+##   &quot;   1&quot;                    &quot;10 (6.5)&quot;                  &quot;&quot;       &quot;&quot;       
+##   &quot;bili (median [IQR])&quot;     &quot;1.30 [0.72, 3.60]&quot;         &quot;0.842&quot;  &quot;nonnorm&quot;
+##   &quot;chol (median [IQR])&quot;     &quot;303.50 [254.25, 377.00]&quot;   &quot;0.544&quot;  &quot;nonnorm&quot;
+##   &quot;albumin (mean (SD))&quot;     &quot;3.52 (0.40)&quot;               &quot;0.874&quot;  &quot;&quot;       
+##   &quot;copper (median [IQR])&quot;   &quot;73.00 [43.00, 139.00]&quot;     &quot;0.717&quot;  &quot;nonnorm&quot;
+##   &quot;alk.phos (median [IQR])&quot; &quot;1283.00 [922.50, 1949.75]&quot; &quot;0.812&quot;  &quot;nonnorm&quot;
+##   &quot;ast (median [IQR])&quot;      &quot;117.40 [83.78, 151.90]&quot;    &quot;0.459&quot;  &quot;nonnorm&quot;
+##   &quot;trig (median [IQR])&quot;     &quot;113.00 [84.50, 155.00]&quot;    &quot;0.370&quot;  &quot;nonnorm&quot;
+##   &quot;platelet (mean (SD))&quot;    &quot;265.20 (90.73)&quot;            &quot;0.555&quot;  &quot;&quot;       
+##   &quot;protime (median [IQR])&quot;  &quot;10.60 [10.00, 11.40]&quot;      &quot;0.588&quot;  &quot;nonnorm&quot;
+##   &quot;stage (%)&quot;               &quot;&quot;                          &quot;0.205&quot;  &quot;exact&quot;  
+##   &quot;   1&quot;                    &quot;4 (2.6)&quot;                   &quot;&quot;       &quot;&quot;       
+##   &quot;   2&quot;                    &quot;32 (20.8)&quot;                 &quot;&quot;       &quot;&quot;       
+##   &quot;   3&quot;                    &quot;64 (41.6)&quot;                 &quot;&quot;       &quot;&quot;       
+##   &quot;   4&quot;                    &quot;54 (35.1)&quot;                 &quot;&quot;       &quot;&quot;</code></pre>
+<pre class="r"><code># Real export way
+tab3Mat &lt;- print(tab3, nonnormal = biomarkers, exact = &quot;stage&quot;, quote = FALSE, noSpaces = TRUE, printToggle = FALSE)
+## Save to a CSV file
+write.csv(tab3Mat, file = &quot;./export/myTable.csv&quot;)
+
+# write.csv(pbc, file = &quot;./export/pbc.csv&quot;)</code></pre>
+</div>
+</div>
+<div id="logistic-regression-analysis" class="section level1">
+<h1>Logistic regression analysis</h1>
+<pre class="r"><code># status:   status at endpoint, 0/1/2 for censored, transplant, dead
+pbc$status</code></pre>
+<pre><code>##   [1] 2 0 2 2 1 2 0 2 2 2 2 2 0 2 2 0 2 2 0 2 0 2 2 2 0 2 2 2 0 2 2 0 2 0 2 0 2
+##  [38] 2 2 0 2 0 0 2 0 2 0 0 2 2 2 2 2 2 2 2 2 0 2 0 0 2 2 2 0 2 2 0 2 0 0 0 0 2
+##  [75] 2 2 2 2 0 2 2 2 0 0 2 2 2 0 2 2 2 2 0 2 2 0 2 0 0 2 0 0 2 2 1 2 0 2 0 2 1
+## [112] 2 2 2 0 0 2 2 2 1 2 0 2 0 1 2 0 2 0 2 2 0 2 0 0 0 0 2 0 0 0 2 2 2 0 0 0 2
+## [149] 2 0 0 2 0 2 0 2 0 1 2 0 0 2 2 2 2 0 2 0 2 0 0 0 0 0 0 2 0 0 0 0 0 0 1 2 0
+## [186] 2 2 0 0 0 2 0 2 0 0 0 0 0 0 0 0 0 0 2 2 0 0 2 0 0 0 0 0 2 2 0 2 0 0 2 0 2
+## [223] 2 0 0 0 2 0 2 0 2 0 0 0 0 0 0 0 2 0 1 0 2 2 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0
+## [260] 0 0 0 1 1 1 0 2 2 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0 0 1 2 0 1 0 0 0 1 0
+## [297] 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 2 0 0 2 0 0 2 0 0 0 0 0 2 2 2 2 2 2
+## [334] 2 0 0 2 2 0 0 2 0 2 0 1 2 2 0 0 2 2 0 0 2 0 2 0 0 0 2 1 1 0 2 0 2 0 2 2 2
+## [371] 2 0 0 0 1 2 0 2 2 1 0 2 1 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 2 0 0 0 0 2 0
+## [408] 0 0 0 0 0 0 2 0 0 0 0</code></pre>
+<pre class="r"><code>pbc2 &lt;- pbc %&gt;% 
+  dplyr::mutate( death = if_else( status == 2, 1, 0) ) 
+
+pbc2 %&gt;% 
+  dplyr::select( status, death ) %&gt;%
+  head()</code></pre>
+<pre><code>##   status death
+## 1      2     1
+## 2      0     0
+## 3      2     1
+## 4      2     1
+## 5      1     0
+## 6      2     1</code></pre>
+<div id="odds-ratio-with-univariate-regression-analysis"
+class="section level2">
+<h2>Odds ratio with univariate regression analysis</h2>
+<pre class="r"><code># Obtain odds ratio of ascites for death
+glm(death ~ ascites, data = pbc2 )</code></pre>
+<pre><code>## 
+## Call:  glm(formula = death ~ ascites, data = pbc2)
+## 
+## Coefficients:
+## (Intercept)      ascites  
+##      0.3542       0.6042  
+## 
+## Degrees of Freedom: 311 Total (i.e. Null);  310 Residual
+##   (106 observations deleted due to missingness)
+## Null Deviance:       74.92 
+## Residual Deviance: 66.83     AIC: 410.7</code></pre>
+<pre class="r"><code>glm_model &lt;- glm(death ~ ascites, family = binomial( &quot;logit&quot; ), data = pbc2 )
+
+broom::tidy( glm_model, conf.int=T, exponentiate=T )</code></pre>
+<pre><code>## # A tibble: 2 × 7
+##   term        estimate std.error statistic    p.value conf.low conf.high
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)    0.548     0.123     -4.88 0.00000108    0.429     0.696
+## 2 ascites       41.9       1.03       3.63 0.000281      8.64    756.</code></pre>
+<pre class="r"><code># broom::tidy( glm_model, conf.int=F, exponentiate=F ) %&gt;&gt;% 
+#   dplyr::mutate( estimate = exp( estimate ) ) 
+# 
+# glm_model_OR &lt;- bind_cols( 
+#   broom::tidy( glm_model, conf.int=F, exponentiate=F ) %&gt;&gt;% 
+#     dplyr::mutate( estimate = exp( estimate ) ) %&gt;&gt;% 
+#     dplyr::select( term, estimate, p.value ), 
+#   exp( confint( glm_model, func = stats::confint.default ) ) 
+# )
+# 
+# glm_model_OR
+# </code></pre>
+</div>
+<div id="odds-ratio-with-multivariate-regression-analysis"
+class="section level2">
+<h2>Odds ratio with multivariate regression analysis</h2>
+<pre class="r"><code>glm_model2 &lt;- glm(death ~ ascites + sex, family = binomial( &quot;logit&quot; ), data = pbc2 )
+
+broom::tidy( glm_model2, conf.int=T, exponentiate=T )</code></pre>
+<pre><code>## # A tibble: 3 × 7
+##   term        estimate std.error statistic      p.value conf.low conf.high
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)    0.482     0.134     -5.46 0.0000000476    0.369     0.624
+## 2 ascites       43.7       1.03       3.67 0.000245        8.97    790.   
+## 3 sexm           2.83      0.376      2.77 0.00558         1.36      6.02</code></pre>
+<pre class="r"><code># glm_model_OR2 &lt;- bind_cols( 
+#   broom::tidy( glm_model2, conf.int=F, exponentiate=F ) %&gt;&gt;% 
+#     dplyr::mutate( estimate = exp( estimate ) ) %&gt;&gt;% 
+#     dplyr::select( term, estimate, p.value ), 
+#   exp( confint( glm_model2, func = stats::confint.default ) ) 
+# )
+
+# glm_model_OR2</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

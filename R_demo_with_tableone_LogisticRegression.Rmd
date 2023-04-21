@@ -51,21 +51,30 @@ so the data here are on an additional 106 cases as well as the 312 randomized pa
 Type `?pbc` for more explanation. 
 
 
-```{r Creating Table one}
+
+# CreateTableOne 
+
+## Read data 
+
+```{r Reading data}
 
 getwd()
 
 pbc <- read.csv(file = "./import/pbc.csv")
-pbc
+head(pbc)
 # data(pbc)
 # ?pbc
+```
 
+
+```{r Creating Table one}
 
 # Single group summary ###############
 CreateTableOne(data = pbc)
 
 ```
 
+## Get column names
 
 ```{r Creating Table one 2}
 ## Get variables names
@@ -75,7 +84,10 @@ colnames(pbc)
 
 ```
 
-```{r Creating Table one}
+
+## Get column names
+
+```{r Creating Table one 3}
 ## Vector of variables to summarize
 myVars <- c("time", "status", "trt", "age", "sex", "ascites", "hepato",
             "spiders", "edema", "bili", "chol", "albumin", "copper", "alk.phos",
@@ -91,7 +103,9 @@ tab2
 
 ```
 
-```{r Creating Table one}
+## Non-normal biomarkers
+
+```{r Creating Table one 4}
 
 # Showing all levels for categorical variables ###############
 # print(tab2, showAllLevels = TRUE) # , formatOptions = list(big.mark = ",")
@@ -107,7 +121,9 @@ print(tab2, nonnormal = biomarkers, formatOptions = list(big.mark = ",") )
 ```
 
 
-```{r Creating Table one}
+## Stratification
+
+```{r Creating Table one 5}
 
 # Multiple group summary ###############
 tab3 <- CreateTableOne(vars = myVars, strata = "trt" , data = pbc, factorVars = catVars)
@@ -116,7 +132,10 @@ print(tab3, nonnormal = biomarkers) # , formatOptions = list(big.mark = ",")
 
 ```
 
-```{r Creating Table one}
+
+## Changing statistical methods
+
+```{r Creating Table one 6}
 # kruskal.test() is used for the nonnormal continous variables and 
 # fisher.test() is used for categorical variables specified in the exact argument. 
 # kruskal.test() is equivalent to wilcox.test() in the two-group case
@@ -125,7 +144,10 @@ print(tab3, nonnormal = biomarkers, exact = "stage") # , smd = TRUE
 
 ```
 
-```{r Creating Table one}
+
+## Exporting table one
+
+```{r Creating Table one 7}
 # Exporting ###############
 # Quick and dirty way
 print(tab3, nonnormal = biomarkers, exact = "stage", quote = TRUE, noSpaces = TRUE)
@@ -142,8 +164,9 @@ write.csv(tab3Mat, file = "./export/myTable.csv")
 ```
 
 
+# Logistic regression analysis
 
-```{r Logistic regression analysis with odds ratio}
+```{r Logistic regression analysis with odds ratio 1}
 
 # status:	status at endpoint, 0/1/2 for censored, transplant, dead
 pbc$status
@@ -157,7 +180,10 @@ pbc2 %>%
 
 ```
 
-```{r Logistic regression analysis with odds ratio}
+
+## Odds ratio with univariate regression analysis
+
+```{r Logistic regression analysis with odds ratio 2}
 # Obtain odds ratio of ascites for death
 glm(death ~ ascites, data = pbc2 )
 
@@ -181,9 +207,13 @@ broom::tidy( glm_model, conf.int=T, exponentiate=T )
 
 ```
 
+
+## Odds ratio with multivariate regression analysis
+
 ```{r Logistic regression analysis with odds ratio}
 
 glm_model2 <- glm(death ~ ascites + sex, family = binomial( "logit" ), data = pbc2 )
+
 broom::tidy( glm_model2, conf.int=T, exponentiate=T )
 
 
